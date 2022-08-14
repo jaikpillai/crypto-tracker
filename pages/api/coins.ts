@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { corsCheck } from "../middleware";
+import { corsCheck } from "../../api/cors";
 
 export default async function handler(
   req: NextApiRequest,
