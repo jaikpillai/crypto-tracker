@@ -8,6 +8,11 @@ export default async function handler(
   let params = req.query;
 
   let coins = await axios({
+    headers: {
+      // "x-access-token": process.env.COINRANKING_APIKEY || "",
+      "X-RapidAPI-Key": process.env.RAPID_API || "",
+      "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
+    },
     url: "/coins",
     params: params,
   });

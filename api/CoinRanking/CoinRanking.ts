@@ -40,11 +40,6 @@ export class CoinRankingAPI {
 }
 
 const backendAxiosInstance = axios.create({
-  headers: {
-    // "x-access-token": process.env.COINRANKING_APIKEY || "",
-    "X-RapidAPI-Key": process.env.RAPID_API || "",
-    "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
-  },
   //   baseURL: "https://api.coinranking.com/v2",
   baseURL: "https://coinranking1.p.rapidapi.com",
 });
