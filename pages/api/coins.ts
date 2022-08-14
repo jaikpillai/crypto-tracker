@@ -4,7 +4,7 @@ import Cors from "cors";
 // Initializing the cors middleware
 // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
 const cors = Cors({
-  origin: ["https://www.google.com", "http://localhost:3000/"],
+  origin: ["https://www.google.com", "http://localhost:3000"],
   methods: ["POST", "GET", "HEAD"],
 });
 
