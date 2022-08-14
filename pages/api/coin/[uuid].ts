@@ -1,15 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "../../api/CoinRanking";
+import axios from "../../../api/CoinRanking";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  let params = req.query;
+  let query = req.query;
 
   let coins = await axios({
-    url: "/coins",
-    params: params,
+    url: `/coin/${query.uuid}`,
+    params: query.params,
   });
   res.status(200).json(coins.data.data);
 }
