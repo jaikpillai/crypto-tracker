@@ -12,8 +12,8 @@ import { useCoin } from "../hooks/useCoin";
 const Home: NextPage = () => {
   let [query, setQuery] = useState({});
   let inpRef = useRef<HTMLInputElement>(null);
-  let { coins } = useCoinsList(query);
-  // let { coinData } = useCoin("Qwsogvtv82FCd");
+  // let { coins } = useCoinsList(query);
+  let { coinData } = useCoin("Qwsogvtv82FCd");
 
   const handleChange = () => {
     setQuery((prev) => {
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
   return (
     <>
       <div style={{ display: "contents", overflowY: "scroll" }}>
-        {coins?.map((e) => {
+        {/* {coins?.map((e) => {
           return (
             <div key={e.uuid} style={{ display: "flex" }}>
               <Image
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
               </div>
             </div>
           );
-        })}
+        })} */}
         <input ref={inpRef} onChange={(e) => handleChange()} />
       </div>
     </>

@@ -8,6 +8,7 @@ export const useCoin = (uuid: string) => {
     const fetch = async () => {
       let coinData = await new CoinRankingAPI().coinDetailsQuery(uuid).fetch();
       setCoinData(coinData.data);
+      console.log(coinData.data);
     };
 
     fetch();
