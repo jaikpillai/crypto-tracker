@@ -9,13 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "drei": "^2.2.21",
     "next": "12.2.5",
+    "nextjs-cors": "^2.1.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-sparklines": "^1.7.0",
+    "react-spring": "^9.5.2",
+    "react-three-fiber": "^6.0.13",
+    "sass": "^1.54.4",
+    "three": "^0.143.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/node": "18.7.2",
     "@types/react": "18.0.17",
+    "@types/react-sparklines": "^1.7.2",
     "eslint": "7.32.0",
     "eslint-config-next": "12.2.5",
     "typescript": "4.7.4"
