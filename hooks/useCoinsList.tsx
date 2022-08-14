@@ -1,7 +1,11 @@
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
-import { CoinRankingAPI } from "../api/CoinRanking";
-import { Coin, CoinsQueryResponse, CoinsStats } from "../api/CoinRanking";
+import { CoinRankingAPI } from "../remote_api/CoinRanking";
+import {
+  Coin,
+  CoinsQueryResponse,
+  CoinsStats,
+} from "../remote_api/CoinRanking";
 
 const useCoinsList = (params?: {}) => {
   const [coins, setCoins] = useState<Coin[]>([]);

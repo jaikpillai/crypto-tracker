@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CoinRankingAPI, DetailedCoin } from "../api/CoinRanking";
+import { CoinRankingAPI, DetailedCoin } from "../remote_api/CoinRanking";
 
 export const useCoin = (uuid: string) => {
   const [coinData, setCoinData] = useState<DetailedCoin>();
@@ -8,7 +8,6 @@ export const useCoin = (uuid: string) => {
     const fetch = async () => {
       let coinData = await new CoinRankingAPI().coinDetailsQuery(uuid).fetch();
       setCoinData(coinData.data);
-      console.log(coinData.data);
     };
 
     fetch();

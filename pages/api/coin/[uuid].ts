@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "../../../api/CoinRanking";
+import axios from "../../../remote_api/CoinRanking";
 
 export default async function handler(
   req: NextApiRequest,
