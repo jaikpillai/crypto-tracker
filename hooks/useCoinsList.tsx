@@ -7,13 +7,10 @@ const useCoinsList = () => {
   const fetchCoins = async () => {
     let coins = await api({
       method: "get",
-      url: requests.fetchCoins.url,
-      params: {
-        ...requests.fetchCoins.params,
-      },
+      url: "https://crypto-tracker-silk.vercel.app/api/coins",
     });
 
-    console.log(coins);
+    console.log(coins.data);
     return () => cancel();
   };
 
