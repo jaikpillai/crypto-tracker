@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   // Run the middleware
-  await corsCheck(req, res);
+  //   await corsCheck(req, res);
 
   // Rest of the API logic
   res.json({ message: "Hello Everyone!" });
