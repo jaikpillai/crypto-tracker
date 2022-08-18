@@ -45,3 +45,29 @@ export interface CoinsStats {
   totalMarketCap: string;
   total24hVolume: string;
 }
+
+export interface Currency {
+  uuid: string;
+  type: string;
+  symbol: string;
+  name: string;
+  iconUrl?: string;
+  sign: string;
+}
+
+export const US_DOLLAR_CURRENCY: Currency = {
+  uuid: "yhjMzLPhuIDl",
+  type: "fiat",
+  symbol: "USD",
+  name: "US Dollar",
+  iconUrl: "https://cdn.coinranking.com/kz6a7w6vF/usd.svg",
+  sign: "$",
+};
+export const INR_CURRENCY: Currency = {
+  uuid: "6mUvpzCc2lFo",
+  type: "fiat",
+  iconUrl: undefined,
+  name: "Indian Rupee",
+  symbol: "INR",
+  sign: "₹",
+};

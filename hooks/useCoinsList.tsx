@@ -6,35 +6,39 @@ import {
   CoinsQueryResponse,
   CoinsStats,
 } from "../remote_api/CoinRanking";
+import { useCurrency } from "./useCurrency";
 
-const useCoinsList = (params?: {}) => {
-  const [coins, setCoins] = useState<Coin[]>([]);
+export const useCoinsList = (defaultCoints: Coin[] = [], params?: {}) => {
+  const [coins, setCoins] = useState<Coin[]>(defaultCoints);
   const [stats, setStats] = useState<CoinsStats>();
+  const [loading, setLoading] = useState(false);
+  const { currency } = useCurrency();
   let coinAPI = new CoinRankingAPI();
 
-  useEffect(() => {
+  const fetchAllCoins = async (params?: {}) => {
     let cancel: () => void;
 
-    const fetchCoins = async () => {
-      try {
-        let coins: CoinsQueryResponse = await coinAPI
-          .allCoinsQuery(params)
-          .fetch({
-            cancelToken: new axios.CancelToken((c) => (cancel = c)),
-          });
+    try {
+      setLoading(true);
+      let coins: CoinsQueryResponse = await coinAPI
+        .allCoinsQuery({ ...params, referenceCurrencyUuid: currency.uuid })
+        .fetch({
+          cancelToken: new axios.CancelToken((c) => (cancel = c)),
+        });
 
-        setCoins(coins.data.coins);
-        setStats(coins.data.stats);
-      } catch (e) {
-        if (axios.isCancel(e)) return;
-      }
-    };
+      setLoading(false);
+      setCoins(coins.data.coins);
+      setStats(coins.data.stats);
+    } catch (e) {
+      setLoading(false);
+      // if (axios.isCancel(e)) return;
+    }
+  };
 
-    fetchCoins();
-    return () => cancel();
-  }, [params]);
+  useEffect(() => {
+    fetchAllCoins();
+    // return () => cancel();
+  }, [currency]);
 
-  return { coins, stats };
+  return { coins, stats, fetchAllCoins, loading };
 };
-
-export default useCoinsList;
