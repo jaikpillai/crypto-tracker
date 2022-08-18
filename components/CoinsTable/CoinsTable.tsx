@@ -14,7 +14,7 @@ interface IChoinChart {
   coins: Coin[];
 }
 
-export const CoinChart: React.FunctionComponent<IChoinChart> = ({
+export const CoinsTable: React.FunctionComponent<IChoinChart> = ({
   coins: _coins,
 }) => {
   const { formatPrice, getTrend, currency } = useCurrency();

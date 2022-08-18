@@ -7,6 +7,12 @@ export interface CoinsQueryResponse {
     coins: Coin[];
   };
 }
+export interface CoinsHistoryQueryResponse {
+  data: {
+    stats: CoinsStats;
+    history: CoinHistoryData[];
+  };
+}
 
 export interface Coin {
   uuid: string; // UUID of the coin
@@ -46,6 +52,11 @@ export interface CoinsStats {
   total24hVolume: string;
 }
 
+export interface CoinHistoryData {
+  price: string;
+  timestamp: number;
+}
+
 export interface Currency {
   uuid: string;
   type: string;
@@ -53,6 +64,7 @@ export interface Currency {
   name: string;
   iconUrl?: string;
   sign: string;
+  default?: number;
 }
 
 export const US_DOLLAR_CURRENCY: Currency = {
@@ -62,6 +74,7 @@ export const US_DOLLAR_CURRENCY: Currency = {
   name: "US Dollar",
   iconUrl: "https://cdn.coinranking.com/kz6a7w6vF/usd.svg",
   sign: "$",
+  default: 1,
 };
 export const INR_CURRENCY: Currency = {
   uuid: "6mUvpzCc2lFo",

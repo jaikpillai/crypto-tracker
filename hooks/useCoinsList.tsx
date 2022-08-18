@@ -36,7 +36,9 @@ export const useCoinsList = (defaultCoints: Coin[] = [], params?: {}) => {
   };
 
   useEffect(() => {
-    fetchAllCoins();
+    if (currency.default !== 1) {
+      fetchAllCoins();
+    }
     // return () => cancel();
   }, [currency]);
 

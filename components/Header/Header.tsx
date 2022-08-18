@@ -3,6 +3,7 @@ import { useCurrency } from "../../hooks/useCurrency";
 import { useTop5Coins } from "../../hooks/";
 import { Coin } from "../../remote_api/CoinRanking";
 import { CoinCard } from "../Cards/CoinCard";
+import { useRouter } from "next/router";
 
 interface IHeader {
   headingText: string;
@@ -17,12 +18,7 @@ export const Header: React.FunctionComponent<IHeader> = ({
   callToAction,
   top5Coins,
 }) => {
-  // const { top5Coins } = useTop5Coins();
-  // const { currency } = useCurrency();
-
-  // useEffect(() => {
-  //   fetchTop5Coins();
-  // }, [currency]);
+  const router = useRouter();
 
   return (
     <div className=" pt-20 pb-20 shadow-md flex flex-col items-center justify-center w-full min-h-[20rem]  p-4 gap-4">
@@ -34,7 +30,13 @@ export const Header: React.FunctionComponent<IHeader> = ({
       {/* Top 5 Coins List */}
       <div className="flex gap-3 flex-wrap items-center justify-center">
         {top5Coins?.map((coin) => {
-          return <CoinCard key={coin.uuid} coin={coin} />;
+          return (
+            <CoinCard
+              onClick={() => router.push(`/coin/${coin.uuid}`)}
+              key={coin.uuid}
+              coin={coin}
+            />
+          );
         })}
       </div>
     </div>

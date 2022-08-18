@@ -56,6 +56,16 @@ export class CoinRankingAPI {
     return { url: this.url, params: this.params, fetch: this.fetch };
   }
 
+  getCoinHistoricalData(uuid: string, params?: {}) {
+    this.url = `/coin/${uuid}/history`;
+    this.params = {
+      referenceCurrencyUuid: "yhjMzLPhuIDl",
+      timePeriod: "24h",
+      ...params,
+    };
+    return { url: this.url, params: this.params, fetch: this.fetch };
+  }
+
   async fetch(config?: AxiosRequestConfig<any>): Promise<{ data: any }> {
     return await axiosInstance({
       url: this.url,

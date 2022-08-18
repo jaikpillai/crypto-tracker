@@ -1,5 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import { useEffect } from "react";
+import { CoinDetailsPage } from "../../components/views";
+import { useCoinHistoricalData } from "../../hooks/useCoinHistoricalData";
 import {
   CoinRankingAPI,
   DetailedCoin,
@@ -12,7 +14,7 @@ interface ICoinPage {
 }
 
 const CoinPage: NextPage<ICoinPage> = ({ coin }) => {
-  return <div>{coin.name}</div>;
+  return <CoinDetailsPage coin={coin} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({

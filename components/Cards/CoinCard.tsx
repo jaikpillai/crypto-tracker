@@ -5,12 +5,16 @@ import { Coin } from "../../remote_api/CoinRanking";
 
 export const CoinCard: React.FunctionComponent<{
   coin: Coin;
+  onClick?: () => {};
 }> = (props) => {
   const { formatPrice, getTrend, currency } = useCurrency();
 
   return (
     <>
-      <button className="rounded-lg bg-neutral-900 h-20 md:h-40 w-[12rem] p-4 justify-between flex flex-col transition-colors duration-100 group shadow-md hover:bg-primary-600">
+      <button
+        onClick={() => props.onClick && props.onClick()}
+        className="rounded-lg bg-neutral-900 h-20 md:h-40 w-[12rem] p-4 justify-between flex flex-col transition-colors duration-100 group shadow-md hover:bg-primary-600"
+      >
         {/* Card Top  */}
         <div className="hidden md:flex w-full justify-between items-center">
           <span className="text-neutral-500 group-hover:text-neutral-300">

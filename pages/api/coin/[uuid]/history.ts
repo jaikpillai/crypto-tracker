@@ -1,13 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "../../remote_api/CoinRanking";
+import axios from "../../../../remote_api/CoinRanking";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  let params = req.query;
-
-  console.log("params", params);
+  let query = req.query;
 
   let coins = await axios({
     headers: {
@@ -15,8 +13,9 @@ export default async function handler(
       "X-RapidAPI-Key": process.env.RAPID_API || "",
       "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
     },
-    url: "/coins",
-    params: params,
+    url: `/coin/${query.uuid}/history`,
+    params: query,
   });
+
   res.status(200).json(coins.data.data);
 }

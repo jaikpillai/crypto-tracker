@@ -14,7 +14,7 @@ export default async function handler(
       "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
     },
     url: `/coin/${query.uuid}`,
-    params: query.params,
+    params: query,
   });
   res.status(200).json(coins.data.data);
 }

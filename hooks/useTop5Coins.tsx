@@ -34,7 +34,9 @@ export const useTop5Coins = (defaultCoins: Coin[] = [], params?: {}) => {
   };
 
   useEffect(() => {
-    fetchTop5Coins();
+    if (currency.default !== 1) {
+      fetchTop5Coins();
+    }
   }, [currency, params]);
 
   return { top5Coins, fetchTop5Coins };
