@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
 import {
   Sparklines,
@@ -39,18 +40,20 @@ export const CoinChart: React.FunctionComponent<IChoinChart> = ({
                 <td className="p-4 border-b border-slate-700  ">
                   <p className="text-left">{coin.rank}</p>
                 </td>
-                <td className="p-4 border-b border-slate-700  ">
-                  <div className="flex items-center gap-4">
-                    <Image
-                      className=""
-                      objectFit="contain"
-                      height={30}
-                      width={30}
-                      src={coin.iconUrl?.split("?")[0] || "/"}
-                    />
+                <td className="p-4 border-b border-slate-700 ">
+                  <Link shallow={true} href={`/coin/${coin.uuid}`}>
+                    <a className="flex items-center gap-4">
+                      <Image
+                        className=""
+                        objectFit="contain"
+                        height={30}
+                        width={30}
+                        src={coin.iconUrl?.split("?")[0] || "/"}
+                      />
 
-                    <p className="text-left">{coin.name}</p>
-                  </div>
+                      <p className="text-left truncate">{coin.name}</p>
+                    </a>
+                  </Link>
                 </td>
                 <td className="p-4 border-b border-slate-700">
                   <p>{formatPrice(coin.price)}</p>
