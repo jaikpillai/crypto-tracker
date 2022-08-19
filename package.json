@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "axios-rate-limit": "^1.3.0",
     "chart.js": "^3.9.1",
     "cors": "^2.8.5",
     "drei": "^2.2.21",

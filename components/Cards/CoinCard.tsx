@@ -13,20 +13,20 @@ export const CoinCard: React.FunctionComponent<{
     <>
       <button
         onClick={() => props.onClick && props.onClick()}
-        className="rounded-lg bg-neutral-900 h-20 md:h-40 w-[12rem] p-4 justify-between flex flex-col transition-colors duration-100 group shadow-md hover:bg-primary-600"
+        className="rounded-lg overflow-hidden bg-gray-400/20 backdrop-blur-lg h-20 md:h-40 w-[12rem] p-4 justify-between flex flex-col transition-colors duration-100 group shadow-md hover:bg-primary-600"
       >
         {/* Card Top  */}
-        <div className="hidden md:flex w-full justify-between items-center">
-          <span className="text-neutral-500 group-hover:text-neutral-300">
+        <div className="relative  hidden md:flex w-full justify-between items-center">
+          <span className=" text-neutral-500 group-hover:text-neutral-300">
             {props.coin.symbol}
           </span>
           {/* Coin Image */}
-          <div className="h-12 w-12 p-1">
+          <div className="-z-0 transition-all group-hover:top-4 group-hover:scale-125 absolute top-0 left-4 h-60 w-60 p-1">
             <Image
-              className=""
+              className="grayscale opacity-10 group-hover:opacity-20"
               objectFit="contain"
-              height={50}
-              width={50}
+              height={150}
+              width={150}
               src={props.coin.iconUrl?.split("?")[0] || "/"}
             />
           </div>
@@ -34,7 +34,7 @@ export const CoinCard: React.FunctionComponent<{
 
         {/* Coin Name & Price */}
 
-        <div className="flex flex-col w-full justify-between items-start">
+        <div className=" z-10 flex flex-col w-full justify-between items-start">
           <p className="w-full text-lg text-left font-medium text-neutral-100 truncate group-hover:text-neutral-100">
             {props.coin.name}
           </p>

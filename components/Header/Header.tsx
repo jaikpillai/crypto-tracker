@@ -4,6 +4,7 @@ import { useTop5Coins } from "../../hooks/";
 import { Coin } from "../../remote_api/CoinRanking";
 import { CoinCard } from "../Cards/CoinCard";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 interface IHeader {
   headingText: string;
@@ -21,11 +22,19 @@ export const Header: React.FunctionComponent<IHeader> = ({
   const router = useRouter();
 
   return (
-    <div className=" pt-20 pb-20 shadow-md flex flex-col items-center justify-center w-full min-h-[20rem]  p-4 gap-4">
-      <h1 className="text-2xl lg:text-4xl font-bold text-white">
+    <div className="border-b border-gray-700 relative pt-20 pb-20 shadow-md flex flex-col items-center justify-center w-full min-h-[20rem]  p-4 gap-4">
+      <div className="absolute object-center  inset-0 bg-black ">
+        <Image
+          className=" object-center opacity-60"
+          objectFit="cover"
+          src={"/header_bg.jpg"}
+          layout="fill"
+        />
+      </div>
+      <h1 className="relative text-2xl lg:text-4xl font-bold text-white">
         {headingText}
       </h1>
-      <h2 className="text lg:text-xl text-neutral-300">{subHeading}</h2>
+      <h2 className="relative lg:text-xl text-neutral-300">{subHeading}</h2>
       <br />
       {/* Top 5 Coins List */}
       <div className="flex gap-3 flex-wrap items-center justify-center">

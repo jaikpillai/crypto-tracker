@@ -1,8 +1,10 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, CancelToken } from "axios";
+import axiosRateLimit from "axios-rate-limit";
 
 export class CoinRankingAPI {
   private url: string = ""; // url for NEXT_JS api -> pages/api
   private params: {} = {};
+  private cancelToken: CancelToken | undefined = undefined;
 
   allCoinsQuery(params?: {}) {
     this.url = "/coins";
@@ -67,7 +69,7 @@ export class CoinRankingAPI {
   }
 
   async fetch(config?: AxiosRequestConfig<any>): Promise<{ data: any }> {
-    return await axiosInstance({
+    return await axiosLimited({
       url: this.url,
       params: this.params,
       ...config,
@@ -75,13 +77,23 @@ export class CoinRankingAPI {
   }
 }
 
+const axiosLimited = axiosRateLimit(
+  axios.create({
+    baseURL: "/api",
+  }),
+  {
+    maxRequests: 5,
+    perMilliseconds: 1000,
+    maxRPS: 2,
+  }
+);
+
+// const axiosInstance = axios.create({
+//   baseURL: "/api",
+// });
+
 const backendAxiosInstance = axios.create({
   //   baseURL: "https://api.coinranking.com/v2",
   baseURL: "https://coinranking1.p.rapidapi.com",
 });
-
-const axiosInstance = axios.create({
-  baseURL: "/api",
-});
-
 export default backendAxiosInstance;

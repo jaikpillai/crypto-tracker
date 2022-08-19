@@ -14,7 +14,7 @@ interface IHomepage {
 
 export const Homepage: NextPage<IHomepage> = ({ top5Coins, coins }) => {
   const { top5Coins: _top5Coins } = useTop5Coins(top5Coins);
-  const { coins: _allCoins, loading } = useCoinsList(coins);
+  const { coins: _allCoins, loading, setParams } = useCoinsList(coins);
 
   return (
     <div className="h-screen bg-neutral-800 bg-gradient-to-t from-black via-gray-800 to-gray-800 overflow-y-auto">
@@ -28,7 +28,7 @@ export const Homepage: NextPage<IHomepage> = ({ top5Coins, coins }) => {
         type="text"
         name=""
         id=""
-        onChange={(e) => fetchAllCoins({ search: e.target.value })}
+        onChange={(e) => setParams({ search: e.target.value })}
       /> */}
       <div className="relative">
         <CoinsTable coins={_allCoins} />

@@ -13,9 +13,8 @@ export const useTop5Coins = (defaultCoins: Coin[] = [], params?: {}) => {
   let coinAPI = new CoinRankingAPI();
   const { currency } = useCurrency();
 
+  let cancel: () => void;
   const fetchTop5Coins = async (params?: {}) => {
-    let cancel: () => void;
-
     try {
       //  setLoading(true);
       let coins: CoinsQueryResponse = await coinAPI
@@ -37,6 +36,7 @@ export const useTop5Coins = (defaultCoins: Coin[] = [], params?: {}) => {
     if (currency.default !== 1) {
       fetchTop5Coins();
     }
+    return () => cancel && cancel();
   }, [currency, params]);
 
   return { top5Coins, fetchTop5Coins };

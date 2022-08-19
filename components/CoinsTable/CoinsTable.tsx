@@ -20,12 +20,13 @@ export const CoinsTable: React.FunctionComponent<IChoinChart> = ({
   const { formatPrice, getTrend, currency } = useCurrency();
 
   return (
-    <div className="pt-10 min-h-screen overflow-x-auto flex items-start justify-start lg:justify-center text-white bg-black/20 backdrop-blur-sm lg:px-40">
+    <div className="w-full pt-10 min-h-screen overflow-x-auto flex items-start justify-start lg:justify-center text-white bg-black/20 backdrop-blur-sm px-4 xl:px-40">
       <table className="border-collapse table-auto w-full text-start">
         <thead className="border-b-2 border-slate-700">
           <tr>
             <th className="text-left p-4">#</th>
             <th className="text-left p-4">Name</th>
+            <th className="text-left p-4">Symbol</th>
             <th className="text-left p-4">Price</th>
             <th className="text-left p-4">7d %</th>
             <th className="text-left p-4">Market Cap</th>
@@ -56,7 +57,12 @@ export const CoinsTable: React.FunctionComponent<IChoinChart> = ({
                   </Link>
                 </td>
                 <td className="p-4 border-b border-slate-700">
-                  <p>{formatPrice(coin.price)}</p>
+                  <p className="bg-gray-700 inline-flex pl-2 pr-2 rounded-md">
+                    {coin.symbol}
+                  </p>
+                </td>
+                <td className="p-4 border-b border-slate-700">
+                  <p className="">{formatPrice(coin.price)}</p>
                 </td>
                 <td className="p-4 border-b border-slate-700">
                   <div className="flex items-center gap-4">

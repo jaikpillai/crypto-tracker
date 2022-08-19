@@ -7,8 +7,6 @@ export default async function handler(
 ) {
   let params = req.query;
 
-  console.log("params", params);
-
   let coins = await axios({
     headers: {
       // "x-access-token": process.env.COINRANKING_APIKEY || "",
@@ -18,5 +16,6 @@ export default async function handler(
     url: "/coins",
     params: params,
   });
+
   res.status(200).json(coins.data.data);
 }
