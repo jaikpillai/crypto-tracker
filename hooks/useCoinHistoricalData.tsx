@@ -1,18 +1,13 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CoinHistoryData,
   CoinRankingAPI,
   CoinsHistoryQueryResponse,
 } from "../remote_api/CoinRanking";
-import {
-  Coin,
-  CoinsQueryResponse,
-  CoinsStats,
-} from "../remote_api/CoinRanking";
 import { useCurrency } from "./useCurrency";
 
-type TimePeriod =
+export type TimePeriod =
   | "1h"
   | "3h"
   | "12h"
@@ -32,6 +27,8 @@ export const useCoinHistoricalData = (
   const [historicalData, setHistoricalData] = useState<CoinHistoryData[]>(
     defaultHistoricalData
   );
+  const [change, setChange] = useState<string>("");
+  const [loading, setLoading] = useState(false);
   let coinAPI = new CoinRankingAPI();
   const { currency } = useCurrency();
   const [timePeriod, setTimePeriod] = useState<TimePeriod>("7d");
@@ -40,7 +37,7 @@ export const useCoinHistoricalData = (
     let cancel: () => void;
 
     try {
-      //  setLoading(true);
+      setLoading(true);
       let history: CoinsHistoryQueryResponse = await coinAPI
         .getCoinHistoricalData(uuid, {
           ...params,
@@ -53,17 +50,26 @@ export const useCoinHistoricalData = (
         });
 
       setHistoricalData(history.data.history);
+      setChange(history.data.change);
+
       //  setStats(coins.data.stats);
-      //  setLoading(false);
+      setLoading(false);
     } catch (e) {
-      //  setLoading(false);
+      setLoading(false);
       if (axios.isCancel(e)) return;
     }
   };
 
   useEffect(() => {
     fetchHistoricalData();
-  }, [currency, params]);
+  }, [currency, params, timePeriod]);
 
-  return { historicalData, setHistoricalData, setTimePeriod, timePeriod };
+  return {
+    historicalData,
+    setHistoricalData,
+    setTimePeriod,
+    timePeriod,
+    change,
+    loading,
+  };
 };

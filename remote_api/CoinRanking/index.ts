@@ -9,7 +9,7 @@ export interface CoinsQueryResponse {
 }
 export interface CoinsHistoryQueryResponse {
   data: {
-    stats: CoinsStats;
+    change: "string";
     history: CoinHistoryData[];
   };
 }
@@ -41,6 +41,20 @@ export interface DetailedCoin extends Coin {
   priceAt: number;
   supply: { circulating: string; confirmed: boolean; total: string };
   websiteUrl: string;
+}
+
+export interface Exchange {
+  uuid: "string";
+  name: "string";
+  iconUrl: "string";
+  verified: boolean;
+  recommended: boolean;
+  numberOfMarkets: number;
+  coinrankingUrl: "string";
+  btcPrice: "string";
+  rank: number;
+  "24hVolume": "string";
+  price: "string";
 }
 
 export interface CoinsStats {
@@ -83,4 +97,30 @@ export const INR_CURRENCY: Currency = {
   name: "Indian Rupee",
   symbol: "INR",
   sign: "₹",
+};
+
+export const DEFAULT_COIN: DetailedCoin = {
+  uuid: "x",
+  symbol: "Test",
+  name: "",
+  color: "",
+  iconUrl: "/",
+  "24hVolume": "",
+  marketCap: "",
+  price: "",
+  btcPrice: "",
+  listedAt: 0,
+  change: "string",
+  rank: 0,
+  sparkline: [],
+  coinrankingUrl: "/",
+  allTimeHigh: { price: "", timestamp: 0 },
+  description: "",
+  links: [],
+  lowVolume: false,
+  numberOfExhanges: 0,
+  numberOfMarkets: 0,
+  priceAt: 0,
+  supply: { circulating: "", confirmed: false, total: "" },
+  websiteUrl: "",
 };

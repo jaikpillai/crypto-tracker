@@ -5,6 +5,7 @@ const colors = require('tailwindcss/colors')
 
 
 module.exports = {
+  mode: "jit",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -16,10 +17,10 @@ module.exports = {
         "primary": ["Sora", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        'primary': colors.indigo,
+        'primary': colors.lime,
         'accent': colors.lime
       }
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }

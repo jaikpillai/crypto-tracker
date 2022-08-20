@@ -6,6 +6,7 @@ import {
   CoinRankingAPI,
   DetailedCoin,
   INR_CURRENCY,
+  US_DOLLAR_CURRENCY,
 } from "../../remote_api/CoinRanking";
 import backendAxiosInstance from "../../remote_api/CoinRanking/CoinRanking";
 
@@ -28,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     ? query.uuid
     : "";
   let coinAPI = new CoinRankingAPI();
-  let currency = INR_CURRENCY;
+  let currency = US_DOLLAR_CURRENCY;
   let result = await backendAxiosInstance({
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API || "",
@@ -37,6 +38,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     url: coinAPI.coinDetailsQuery(uuid).url,
     params: coinAPI.coinDetailsQuery(uuid, {
       referenceCurrencyUuid: currency.uuid,
+      timePeriod: "1h",
     }).params,
   });
 

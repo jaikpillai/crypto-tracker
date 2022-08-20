@@ -17,18 +17,6 @@ export const getServerSideProps = async () => {
   let coinAPI = new CoinRankingAPI();
   let currency = US_DOLLAR_CURRENCY;
 
-  // top 5 coins
-  // let result = await backendAxiosInstance({
-  //   headers: {
-  //     "X-RapidAPI-Key": process.env.RAPID_API || "",
-  //     "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
-  //   },
-  //   url: coinAPI.top5CoinsQuery().url,
-  //   params: coinAPI.top5CoinsQuery({
-  //     referenceCurrencyUuid: currency.uuid,
-  //   }).params,
-  // });
-
   // all coins
   let resultAllCoins = await backendAxiosInstance({
     headers: {
@@ -43,7 +31,7 @@ export const getServerSideProps = async () => {
 
   let coins = resultAllCoins.data.data.coins;
   let top5Coins = resultAllCoins.data.data.coins.slice(0, 5);
-
+  
   return {
     props: { coins: coins, top5Coins: top5Coins },
   };

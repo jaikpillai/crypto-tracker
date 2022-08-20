@@ -13,7 +13,7 @@ export const CoinCard: React.FunctionComponent<{
     <>
       <button
         onClick={() => props.onClick && props.onClick()}
-        className="rounded-lg overflow-hidden bg-gray-400/20 backdrop-blur-lg h-20 md:h-40 w-[12rem] p-4 justify-between flex flex-col transition-colors duration-100 group shadow-md hover:bg-primary-600"
+        className="justify-center rounded-lg overflow-hidden bg-gray-400/20 backdrop-blur-lg h-16 md:h-40 w-[8rem] md:w-[12rem] p-4 md:justify-between flex flex-col transition-colors duration-100 group shadow-md hover:bg-primary-600"
       >
         {/* Card Top  */}
         <div className="relative  hidden md:flex w-full justify-between items-center">
@@ -34,16 +34,16 @@ export const CoinCard: React.FunctionComponent<{
 
         {/* Coin Name & Price */}
 
-        <div className=" z-10 flex flex-col w-full justify-between items-start">
-          <p className="w-full text-lg text-left font-medium text-neutral-100 truncate group-hover:text-neutral-100">
+        <div className=" z-10 flex flex-col w-full justify-between items-start ">
+          <p className="w-full text-sm md:text-lg text-left font-medium text-neutral-100 truncate group-hover:text-neutral-100">
             {props.coin.name}
           </p>
 
           {/* Price */}
 
-          <div className="flex w-full justify-between">
+          <div className="flex w-full justify-between  items-center">
             <span
-              className={`w-full text-start truncate ${
+              className={`w-full text-xs md:text-lg text-start truncate ${
                 getTrend(props.coin.change) === "up"
                   ? "text-green-500 group-hover:text-neutral-100"
                   : "text-red-500 group-hover:text-neutral-100"

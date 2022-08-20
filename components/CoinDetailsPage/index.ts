@@ -1,0 +1,1 @@
+export { CoinDetailsHeader } from "./CoinDetailsHeader";

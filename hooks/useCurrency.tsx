@@ -16,9 +16,13 @@ export const useCurrency = () => {
     );
   }
 
+  function formatNumber(num: string, precision: number = 4) {
+    return mounted && Number(Number(num).toFixed(precision)).toLocaleString();
+  }
+
   const getTrend = (change: string) => {
     return mounted && Number(change) >= 0 ? "up" : "down";
   };
 
-  return { currency, setCurrency, formatPrice, getTrend };
+  return { currency, setCurrency, formatPrice, getTrend, formatNumber };
 };
