@@ -96,4 +96,19 @@ const backendAxiosInstance = axios.create({
   //   baseURL: "https://api.coinranking.com/v2",
   baseURL: "https://coinranking1.p.rapidapi.com",
 });
+
+export const axiosPublic = axiosRateLimit(
+  axios.create({
+    headers: {
+      "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API || "",
+      "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
+    },
+    baseURL: "https://coinranking1.p.rapidapi.com",
+  }),
+  {
+    maxRequests: 5,
+    perMilliseconds: 1000,
+    maxRPS: 2,
+  }
+);
 export default backendAxiosInstance;

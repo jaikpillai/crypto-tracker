@@ -1,12 +1,41 @@
 import "../styles/globals.scss";
 // import "melt-components/dist/tailwind.css";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { Progress } from "../components/Progress";
+import { useRouterProgress } from "../hooks";
 
 import type { AppProps } from "next/app";
 import { CurrencyProvider } from "../contexts/CurrencyContext";
+import { ToolbarHeader } from "../components/Header/ToolbarHeader";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { animating, setIsAnimating } = useRouterProgress();
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleStart = () => {
+      setIsAnimating(true);
+    };
+    const handleStop = () => {
+      setIsAnimating(false);
+    };
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleStop);
+    router.events.on("routeChangeError", handleStop);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleStop);
+      router.events.off("routeChangeError", handleStop);
+    };
+  }, [router]);
+
   return (
     <CurrencyProvider>
+      <Progress isAnimating={animating} />
+      <ToolbarHeader />
       <Component {...pageProps} />
     </CurrencyProvider>
   );

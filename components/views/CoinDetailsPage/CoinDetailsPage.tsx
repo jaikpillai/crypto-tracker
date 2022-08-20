@@ -13,7 +13,7 @@ export const CoinDetailsPage: React.FunctionComponent<ICoinDetailsPage> = ({
 }) => {
   const { coinData } = useCoin(coin.uuid, coin);
   return (
-    <div className="flex flex-col gap-20 h-screen bg-neutral-800 bg-gradient-to-t from-black via-gray-800 to-gray-800 overflow-y-auto px-2 xl:px-60 py-10 lg:py-20">
+    <div className="flex flex-col gap-20 h-screen md:px-5  bg-gradient-to-t from-black via-gray-800 to-gray-800 overflow-y-auto px-2 xl:px-60 py-20 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
       <CoinDetailsHeader coin={coinData} />
 
       <div className="flex flex-col items-start md:items-center gap-10">
@@ -21,7 +21,7 @@ export const CoinDetailsPage: React.FunctionComponent<ICoinDetailsPage> = ({
           <div className="w-full md:w-2/3 flex self-start ">
             <CoinPriceChart coin={coinData} />
           </div>
-          <div className=" md:w-1/3 bg-gray-900/30  rounded-md h-[36rem] p-4  overflow-y-auto">
+          <div className=" md:w-1/3 bg-gray-900/30  rounded-md h-[36rem] p-4  overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
             <ExchangesList coin={coinData} uuid={coin.uuid} />
           </div>
         </div>

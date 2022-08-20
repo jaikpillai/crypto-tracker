@@ -17,7 +17,7 @@ export const Homepage: NextPage<IHomepage> = ({ top5Coins, coins }) => {
   const { coins: _allCoins, loading, setParams } = useCoinsList(coins);
 
   return (
-    <div className="h-screen bg-neutral-800 bg-gradient-to-t from-black via-gray-800 to-gray-800 overflow-y-auto">
+    <div className="h-screen bg-neutral-800 bg-gradient-to-t from-black via-gray-800 to-gray-800 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
       <Header
         headingText="Top Crypto"
         subHeading="A Cryptocurrency tracker"

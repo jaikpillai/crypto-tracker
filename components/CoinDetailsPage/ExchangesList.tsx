@@ -13,9 +13,8 @@ export const ExchangesList: React.FunctionComponent<IExchangeList> = ({
   coin,
 }) => {
   const { exchanges } = useExchangeList(uuid);
-
   return (
-    <div className="relative flex flex-col gap-4 mt-5">
+    <div className="relative flex flex-col gap-4 mt-5 scrollbar ">
       <p className="text-neutral-200 text-lg font-bold  ">Listed On</p>
 
       {exchanges?.map((e) => {

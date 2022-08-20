@@ -5,6 +5,7 @@ import {
   INR_CURRENCY,
   US_DOLLAR_CURRENCY,
 } from "../remote_api/CoinRanking";
+import { axiosPublic } from "../remote_api/CoinRanking/CoinRanking";
 
 interface ICurrecyContext {
   currency: Currency;
@@ -24,12 +25,8 @@ export const CurrencyProvider: React.FunctionComponent<ICurrencyProvider> = ({
   children,
 }) => {
   const [currency, setCurrency] = useState<Currency>(US_DOLLAR_CURRENCY);
+  const [currencyList, setCurrencyList] = useState<Currency[]>([]);
   let coinAPI = new CoinRankingAPI();
-
-  const fetchCurrencies = async (params?: {}) => {
-    let _currencies = await coinAPI.getCurrencies(params).fetch();
-    console.log(_currencies);
-  };
 
   return (
     <CurrecyContext.Provider value={{ currency, setCurrency }}>

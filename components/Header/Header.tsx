@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { useCurrency } from "../../hooks/useCurrency";
-import { useTop5Coins } from "../../hooks/";
 import { Coin } from "../../remote_api/CoinRanking";
 import { CoinCard } from "../Cards/CoinCard";
 import { useRouter } from "next/router";
