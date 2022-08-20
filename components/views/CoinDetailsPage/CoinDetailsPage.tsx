@@ -2,7 +2,6 @@ import { DetailedCoin } from "../../../remote_api/CoinRanking";
 import { CoinDetailsHeader } from "../../CoinDetailsPage";
 import { CoinPriceChart } from "../../Charts/CoinPriceChart";
 import { useCoin } from "../../../hooks";
-import { useExchangeList } from "../../../hooks/useExchangeList";
 import { ExchangesList } from "../../CoinDetailsPage/ExchangesList";
 const parse = require("html-react-parser");
 interface ICoinDetailsPage {
@@ -13,7 +12,6 @@ export const CoinDetailsPage: React.FunctionComponent<ICoinDetailsPage> = ({
   coin,
 }) => {
   const { coinData } = useCoin(coin.uuid, coin);
-  const { exchanges } = useExchangeList(coin.uuid);
   return (
     <div className="flex flex-col gap-20 h-screen bg-neutral-800 bg-gradient-to-t from-black via-gray-800 to-gray-800 overflow-y-auto px-2 xl:px-60 py-10 lg:py-20">
       <CoinDetailsHeader coin={coinData} />
