@@ -27,6 +27,7 @@ export const useCurrency = () => {
           return amount + " " + symbol;
       }
     }
+    return "";
   }
 
   const fetchCurrencies = async (params?: {}) => {
