@@ -63,7 +63,7 @@ const ExchangeCard: React.FunctionComponent<IExchangeCard> = ({
               : "text-red-500"
           }`}
         >
-          {exchange.price != null ? formatPrice(exchange.price) : "ERR_RETR"}
+          {exchange.price != null && formatPrice(exchange.price)}
         </p>
       </a>
     </Link>
