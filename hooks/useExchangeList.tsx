@@ -55,13 +55,14 @@ export const useExchangeList = (uuid: string, _params?: {}) => {
         url: `https://coinranking1.p.rapidapi.com/coin/${uuid}/exchanges`,
         method: "get",
         params: {
-          referenceCurrencyUuid: currency.uuid,
+          referenceCurrencyUuid: currency?.uuid,
           orderDirection: "desc",
           limit: "50",
           ...params,
         },
         signal: signal,
       });
+
       setLoading(false);
       setExchanges(res.data.data.exchanges);
       setStats(res.data.data.stats);

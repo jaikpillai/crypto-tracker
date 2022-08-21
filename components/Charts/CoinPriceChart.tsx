@@ -13,7 +13,6 @@ import {
   TimePeriod,
   useCoinHistoricalData,
 } from "../../hooks/useCoinHistoricalData";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { _DeepPartialObject } from "chart.js/types/utils";
 
@@ -119,7 +118,7 @@ export const CoinPriceChart: React.FunctionComponent<{ coin: Coin }> = ({
         </div>
       )}
       <p className="text-white font-bold mb-5 text-lg">
-        {coin.name} to {currency.symbol} Chart
+        {coin.name} to {currency?.symbol} Chart
       </p>
 
       {/* Time Period Buttobs */}

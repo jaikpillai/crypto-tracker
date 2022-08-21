@@ -5,6 +5,7 @@ import { US_DOLLAR_CURRENCY, INR_CURRENCY } from "../../remote_api/CoinRanking";
 import { CurrencyDialog } from "../Dialogs";
 export const ToolbarHeader: React.FunctionComponent = () => {
   const { setCurrency } = useCurrency();
+
   const [isCurrencyDialogOpen, setIsCurrencyDialogOpen] = useState(false);
   const router = useRouter();
   return (
@@ -19,10 +20,12 @@ export const ToolbarHeader: React.FunctionComponent = () => {
         className="text-white"
         onClick={() => setIsCurrencyDialogOpen(true)}
       >
-        <CurrencyDialog
-          isOpen={isCurrencyDialogOpen}
-          setIsOpen={(e) => setIsCurrencyDialogOpen(e)}
-        />
+        {isCurrencyDialogOpen && (
+          <CurrencyDialog
+            isOpen={isCurrencyDialogOpen}
+            setIsOpen={(e) => setIsCurrencyDialogOpen(e)}
+          />
+        )}
         Curre
       </button>
     </div>

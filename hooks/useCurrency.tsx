@@ -4,8 +4,11 @@ import { Currency } from "../remote_api/CoinRanking";
 import { axiosPublic } from "../remote_api/CoinRanking/CoinRanking";
 
 export const useCurrency = () => {
-  const { currency, setCurrency } = useContext(CurrecyContext);
-  const [currencyList, setCurrencyList] = useState<Currency[]>([]);
+  const { currency, setCurrency, defaultCurrencyList } =
+    useContext(CurrecyContext);
+  const [currencyList, setCurrencyList] =
+    useState<Currency[]>(defaultCurrencyList);
+
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -13,29 +16,29 @@ export const useCurrency = () => {
   }, []);
 
   function formatPrice(price: string, precision: number = 4) {
-    let symbol = currency?.sign ? currency.sign : currency.symbol;
+    let symbol = currency?.sign ? currency.sign : currency?.symbol;
     let amount =
       Number(price) <= 0
         ? Number(price).toFixed(precision)
         : Number(Number(price).toFixed(precision)).toLocaleString();
     if (mounted) {
-      switch (currency.type) {
+      switch (currency?.type) {
         case "fiat":
           return symbol + amount;
         default:
-          symbol = currency.symbol;
+          symbol = currency?.symbol;
           return amount + " " + symbol;
       }
     }
     return "";
   }
 
-  const fetchCurrencies = async (params?: {}) => {
+  const fetchCurrencies = async (params?: {}, _signal?: AbortSignal) => {
     let _currencies = await axiosPublic({
       url: "/reference-currencies",
       params: { limit: "10", ...params },
+      signal: _signal,
     });
-
     setCurrencyList(_currencies.data.data.currencies);
   };
 

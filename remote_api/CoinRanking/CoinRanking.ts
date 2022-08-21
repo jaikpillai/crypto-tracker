@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, CancelToken } from "axios";
 import axiosRateLimit from "axios-rate-limit";
+import cookies from "js-cookie";
 
 export class CoinRankingAPI {
   private url: string = ""; // url for NEXT_JS api -> pages/api
@@ -108,7 +109,7 @@ export const axiosPublic = axiosRateLimit(
   {
     maxRequests: 5,
     perMilliseconds: 1000,
-    maxRPS: 2,
+    maxRPS: 4,
   }
 );
 export default backendAxiosInstance;

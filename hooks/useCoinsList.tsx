@@ -8,9 +8,11 @@ import {
 } from "../remote_api/CoinRanking";
 import { useCurrency } from "./useCurrency";
 import axiosRateLimit from "axios-rate-limit";
+import { useContext } from "react";
+import { CurrecyContext } from "../contexts/CurrencyContext";
 
-export const useCoinsList = (defaultCoints: Coin[] = [], _params?: {}) => {
-  const [coins, setCoins] = useState<Coin[]>(defaultCoints);
+export const useCoinsList = (defaultCoins: Coin[] = [], _params?: {}) => {
+  const [coins, setCoins] = useState<Coin[]>(defaultCoins);
   const [params, setParams] = useState(_params);
   const [stats, setStats] = useState<CoinsStats>();
   const [loading, setLoading] = useState(false);
@@ -55,7 +57,7 @@ export const useCoinsList = (defaultCoints: Coin[] = [], _params?: {}) => {
         url: "https://coinranking1.p.rapidapi.com/coins",
         method: "get",
         params: {
-          referenceCurrencyUuid: currency.uuid,
+          referenceCurrencyUuid: currency?.uuid,
           timePeriod: "7d",
           "tiers[0]": "1",
           orderBy: "marketCap",
@@ -74,9 +76,10 @@ export const useCoinsList = (defaultCoints: Coin[] = [], _params?: {}) => {
   };
 
   useEffect(() => {
-    if (currency.default !== 1) {
+    if (currency?.uuid) {
       fetchAllCoins();
     }
+    return () => {};
   }, [currency]);
 
   // useEffect(() => {

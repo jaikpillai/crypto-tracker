@@ -57,12 +57,13 @@ const ExchangeCard: React.FunctionComponent<IExchangeCard> = ({
         )}
         <p
           className={`text-sm font-medium flex-1 text-end ${
-            Number(coin.price) >= Number(exchange.price)
+            Number(coin.price) >= Number(exchange.price) &&
+            exchange.price !== null
               ? "text-green-500"
               : "text-red-500"
           }`}
         >
-          {formatPrice(exchange.price)}
+          {exchange.price != null ? formatPrice(exchange.price) : "ERR_RETR"}
         </p>
       </a>
     </Link>

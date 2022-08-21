@@ -1,3 +1,5 @@
+import cookies from "js-cookie";
+
 export { default } from "./CoinRanking";
 export { CoinRankingAPI } from "./CoinRanking";
 
@@ -124,3 +126,28 @@ export const DEFAULT_COIN: DetailedCoin = {
   supply: { circulating: "", confirmed: false, total: "" },
   websiteUrl: "",
 };
+
+export function getDefaultCurrency() {
+  let currency;
+
+  if (isValidCurrencyCookie(cookies.get("currency"))) {
+    currency = JSON.parse(
+      JSON.parse(JSON.stringify(cookies.get("currency")))
+    ) as Currency;
+  } else {
+    currency = US_DOLLAR_CURRENCY;
+  }
+
+  return currency;
+}
+
+function isValidCurrencyCookie(cookie: string | undefined) {
+  if (cookie === undefined) return false;
+  try {
+    if (JSON.parse(JSON.parse(JSON.stringify(cookie)))?.uuid) {
+      return true;
+    }
+  } catch (e) {
+    return false;
+  }
+}
