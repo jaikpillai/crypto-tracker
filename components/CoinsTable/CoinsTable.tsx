@@ -1,27 +1,48 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
   Sparklines,
   SparklinesLine,
   SparklinesNormalBand,
 } from "react-sparklines";
 import { useCoinsList, useCurrency } from "../../hooks";
-import { Coin } from "../../remote_api/CoinRanking";
+import { Coin, CoinsStats } from "../../remote_api/CoinRanking";
 import { Triangle } from "../Shapes";
 
 interface IChoinChart {
   coins: Coin[];
+  stats: CoinsStats | undefined;
+  setParams: (params: {}) => void;
+  currentPage?: number;
+  loading?: boolean;
+  limit?: number;
 }
 
 export const CoinsTable: React.FunctionComponent<IChoinChart> = ({
   coins: _coins,
+  stats,
+  setParams,
+  currentPage = 1,
+  loading,
+  limit = 50,
 }) => {
   const { formatPrice, getTrend, currency } = useCurrency();
+  const router = useRouter();
 
+  const goToPage = (n: number) => {
+    router.push(`/charts/${n}`);
+  };
+  if (_coins.length === 0 && loading === false)
+    return (
+      <div className="w-full pt-10 h-screen overflow-x-auto lg:justify-center text-white bg-black/20 backdrop-blur-sm px-4 xl:px-40">
+        <p>Page limit</p>
+      </div>
+    );
   return (
-    <div className="w-full pt-10 min-h-screen overflow-x-auto flex items-start justify-start lg:justify-center text-white bg-black/20 backdrop-blur-sm px-4 xl:px-40">
-      <table className="border-collapse table-auto w-full text-start">
+    <div className="w-full pt-10 min-h-screen overflow-x-auto lg:justify-center text-white bg-black/20 backdrop-blur-sm px-4 xl:px-40">
+      <table className="border-collapse table-auto w-full h-full text-start">
         <thead className="border-b-2 border-slate-700">
           <tr>
             <th className="text-left p-4">#</th>
@@ -129,6 +150,148 @@ export const CoinsTable: React.FunctionComponent<IChoinChart> = ({
           })}
         </tbody>
       </table>
+      <br />
+      <p className="text-sm">
+        Showing {currentPage * limit - (limit - 1)} -{" "}
+        {stats?.total && currentPage * limit + (_coins.length - limit)} out of{" "}
+        {stats?.total}
+      </p>
+      {_coins.length >= 0 && (
+        <PaginationNumbers
+          currentPage={currentPage}
+          totalEntries={stats?.total}
+          entriesPerPage={limit}
+          onClick={goToPage}
+        />
+      )}
     </div>
   );
+};
+
+const PaginationNumbers: React.FunctionComponent<{
+  currentPage?: number;
+  entriesPerPage: number;
+  totalEntries: number | undefined;
+  onClick: (n: number) => void;
+}> = ({ entriesPerPage, totalEntries, onClick, currentPage }) => {
+  const pageNumbers: number[] = [];
+  const pageBuffer = 6;
+  useEffect(() => {}, [currentPage]);
+
+  if (totalEntries) {
+    for (let i = 0; i < Math.ceil(totalEntries / entriesPerPage); i++) {
+      pageNumbers.push(i + 1);
+    }
+  }
+
+  if (currentPage) {
+    const leftEdge =
+      currentPage > pageBuffer - 2 ? pageNumbers.indexOf(currentPage) - 2 : 0;
+
+    const rightEdge =
+      currentPage + pageBuffer - 2 < pageNumbers[pageNumbers.length - 1]
+        ? pageNumbers.indexOf(currentPage) + 3
+        : pageNumbers.indexOf(pageNumbers.length) + 1;
+    return (
+      <nav className="p-2 text-sm">
+        <ul className="flex gap-1 w-full items-center justify-center">
+          {/* Left Arrow */}
+          {currentPage != 1 && (
+            <svg
+              onClick={() => onClick(currentPage - 1)}
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 mr-2 cursor-pointer"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          )}
+          {currentPage > pageBuffer - 2 && (
+            <>
+              <li
+                className="cursor-pointer"
+                onClick={() => {
+                  onClick(1);
+                }}
+              >
+                1
+              </li>
+              <li
+                className="pl-2 text-gray-500 cursor-pointer"
+                onClick={() => {
+                  onClick(pageBuffer - 2);
+                }}
+              >
+                ...
+              </li>
+            </>
+          )}
+          {pageNumbers.slice(leftEdge, rightEdge).map((n) => {
+            return (
+              <li
+                className={`p-2 rounded-md cursor-pointer w-8 flex items-center justify-center ${
+                  n === currentPage && "bg-primary-400 text-black"
+                }`}
+                key={n}
+                onClick={() => {
+                  onClick(n);
+                }}
+              >
+                {n}
+              </li>
+            );
+          })}
+
+          {currentPage + 4 < pageNumbers[pageNumbers.length - 1] && (
+            <>
+              <li
+                className="pr-2 text-gray-500 cursor-pointer"
+                onClick={() => {
+                  onClick(pageNumbers[pageNumbers.length - 1] - pageBuffer + 2);
+                }}
+              >
+                ...
+              </li>
+
+              <li
+                className="cursor-pointer"
+                onClick={() => {
+                  onClick(pageNumbers[pageNumbers.length - 1]);
+                }}
+              >
+                {pageNumbers[pageNumbers.length - 1]}
+              </li>
+            </>
+          )}
+          {/* Right Arrow */}
+
+          {currentPage != pageNumbers[pageNumbers.length - 1] && (
+            <svg
+              onClick={() => onClick(currentPage + 1)}
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 ml-2 cursor-pointer"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          )}
+        </ul>
+      </nav>
+    );
+  }
+  return null;
 };

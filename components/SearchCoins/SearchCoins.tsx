@@ -55,9 +55,7 @@ export const SearchCoins = () => {
               {({ active, selected }) => (
                 <Combobox.Button
                   as="button"
-                  onClick={() =>
-                    router.push(`/coin/${coin.uuid}`, "", { shallow: false })
-                  }
+                  onClick={() => router.push(`/coin/${coin.uuid}`)}
                   className="p-2   border-slate-700 hover:bg-gray-800 cursor-pointer w-full"
                 >
                   <a className=" flex items-center justify-start  gap-4 w-full">

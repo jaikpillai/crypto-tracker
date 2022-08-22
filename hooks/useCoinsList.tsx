@@ -13,6 +13,7 @@ import { CurrecyContext } from "../contexts/CurrencyContext";
 
 export const useCoinsList = (defaultCoins: Coin[] = [], _params?: {}) => {
   const [coins, setCoins] = useState<Coin[]>(defaultCoins);
+  const [limit, setLimit] = useState(50); // limit of no. of results in query
   const [params, setParams] = useState(_params);
   const [stats, setStats] = useState<CoinsStats>();
   const [loading, setLoading] = useState(false);
@@ -62,12 +63,13 @@ export const useCoinsList = (defaultCoins: Coin[] = [], _params?: {}) => {
           "tiers[0]": "1",
           orderBy: "marketCap",
           orderDirection: "desc",
-          limit: "50",
+          limit: limit,
           ...params,
         },
         signal: signal,
       });
       setLoading(false);
+
       setCoins(res.data.data.coins);
       setStats(res.data.data.stats);
     } catch (e) {
@@ -80,7 +82,7 @@ export const useCoinsList = (defaultCoins: Coin[] = [], _params?: {}) => {
       fetchAllCoins();
     }
     return () => {};
-  }, [currency]);
+  }, [currency, params, limit]);
 
   // useEffect(() => {
   //   const controller = new AbortController();
@@ -93,5 +95,5 @@ export const useCoinsList = (defaultCoins: Coin[] = [], _params?: {}) => {
   //   };
   // }, [params]);
 
-  return { coins, stats, fetchAllCoins, loading, setParams };
+  return { coins, stats, fetchAllCoins, loading, setParams, limit };
 };

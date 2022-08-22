@@ -1,6 +1,6 @@
 import "../styles/globals.scss";
 // import "melt-components/dist/tailwind.css";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { Progress } from "../components/Progress";
 import { useRouterProgress } from "../hooks";
@@ -12,6 +12,7 @@ import { ToolbarHeader } from "../components/Header/ToolbarHeader";
 function MyApp({ Component, pageProps }: AppProps) {
   const { animating, setIsAnimating } = useRouterProgress();
   const router = useRouter();
+  const windowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleStart = () => {
@@ -19,6 +20,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
     const handleStop = () => {
       setIsAnimating(false);
+      const app = windowRef.current;
+      if (app) {
+        app.scrollTo({
+          top: 0,
+          left: 0,
+        });
+      }
     };
 
     router.events.on("routeChangeStart", handleStart);
@@ -36,7 +44,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     <CurrencyProvider>
       <Progress isAnimating={animating} />
       <ToolbarHeader />
-      <Component {...pageProps} />
+      <div
+        className="w-screen h-screen overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
+        ref={windowRef}
+      >
+        <Component {...pageProps} />
+      </div>
     </CurrencyProvider>
   );
 }

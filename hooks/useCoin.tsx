@@ -35,5 +35,6 @@ export const useCoin = (uuid: string, coin: DetailedCoin) => {
       fetch();
     }
   }, [uuid, currency]);
+
   return { coinData, loading };
 };
