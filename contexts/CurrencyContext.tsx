@@ -45,7 +45,7 @@ export const CurrencyProvider: React.FunctionComponent<ICurrencyProvider> = ({
   };
 
   function setCurrencyCookie() {
-    cookies.set("currency", JSON.stringify(currency));
+    cookies.set("currency", JSON.stringify(currency), { expires: 30 });
   }
 
   useEffect(() => {

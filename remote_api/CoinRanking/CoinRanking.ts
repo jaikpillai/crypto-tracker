@@ -69,6 +69,20 @@ export class CoinRankingAPI {
     return { url: this.url, params: this.params, fetch: this.fetch };
   }
 
+  getSearchSuggestions(params?: {}) {
+    this.url = "/coins";
+    this.params = {
+      referenceCurrencyUuid: "yhjMzLPhuIDl",
+      timePeriod: "7d",
+      "tiers[0]": "1",
+      orderBy: "marketCap",
+      orderDirection: "desc",
+      limit: "5",
+      ...params,
+    };
+    return { url: this.url, params: this.params, fetch: this.fetch };
+  }
+
   async fetch(config?: AxiosRequestConfig<any>): Promise<{ data: any }> {
     return await axiosLimited({
       url: this.url,

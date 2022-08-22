@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import { useContext, useEffect, useState } from "react";
 import { CurrecyContext } from "../contexts/CurrencyContext";
 import { Currency } from "../remote_api/CoinRanking";
@@ -15,12 +16,18 @@ export const useCurrency = () => {
     setMounted(true);
   }, []);
 
-  function formatPrice(price: string, precision: number = 4) {
+  function formatPrice(price: string, precision: number = 3) {
     let symbol = currency?.sign ? currency.sign : currency?.symbol;
+
     let amount =
-      Number(price) <= 0
-        ? Number(price).toFixed(precision)
-        : Number(Number(price).toFixed(precision)).toLocaleString();
+      BigNumber(price) < BigNumber(1)
+        ? BigNumber(price).toFormat(
+            determineDecimals(Number(price)) + 2,
+            BigNumber.ROUND_DOWN
+          )
+        : BigNumber(
+            BigNumber(price).toFixed(3, BigNumber.ROUND_DOWN)
+          ).toFormat();
     if (mounted) {
       switch (currency?.type) {
         case "fiat":
@@ -60,3 +67,8 @@ export const useCurrency = () => {
     currencyList,
   };
 };
+
+function determineDecimals(n: number) {
+  var log10 = n ? Math.floor(Math.log10(n)) : 0;
+  return Math.abs(log10);
+}

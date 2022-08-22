@@ -62,7 +62,7 @@ export const useCoinHistoricalData = (
 
   useEffect(() => {
     fetchHistoricalData();
-  }, [currency, params, timePeriod]);
+  }, [currency, params, timePeriod, uuid]);
 
   return {
     historicalData,

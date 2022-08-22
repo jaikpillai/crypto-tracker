@@ -12,7 +12,7 @@ export const ExchangesList: React.FunctionComponent<IExchangeList> = ({
   uuid,
   coin,
 }) => {
-  const { exchanges } = useExchangeList(uuid);
+  const { exchanges, loading } = useExchangeList(uuid);
   return (
     <div className="relative flex flex-col gap-4 mt-5 scrollbar ">
       <p className="text-neutral-200 text-lg font-bold  ">Listed On</p>
@@ -20,6 +20,10 @@ export const ExchangesList: React.FunctionComponent<IExchangeList> = ({
       {exchanges?.map((e) => {
         return <ExchangeCard coin={coin} key={e.uuid} exchange={e} />;
       })}
+
+      {exchanges.length === 0 && loading === false && (
+        <p className="text-neutral-200">No Exchanges found</p>
+      )}
     </div>
   );
 };

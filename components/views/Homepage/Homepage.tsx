@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useEffect } from "react";
 
-import { useCoinsList, useCurrency, useTop5Coins } from "../../../hooks/";
+import { useCoinsList, useCurrency } from "../../../hooks/";
 
 import { Coin } from "../../../remote_api/CoinRanking";
 import { CoinsTable } from "../../CoinsTable/CoinsTable";
@@ -13,7 +13,7 @@ interface IHomepage {
 }
 
 export const Homepage: NextPage<IHomepage> = ({ top5Coins, coins }) => {
-  const { top5Coins: _top5Coins } = useTop5Coins(top5Coins);
+  // const { top5Coins: _top5Coins } = useTop5Coins(top5Coins);
   const { coins: _allCoins, loading, setParams } = useCoinsList(coins);
 
   return (
@@ -22,7 +22,7 @@ export const Homepage: NextPage<IHomepage> = ({ top5Coins, coins }) => {
         headingText="Top Crypto"
         subHeading="A Cryptocurrency tracker"
         callToAction={{ text: "Visit", link: "/" }}
-        top5Coins={_top5Coins}
+        top5Coins={_allCoins.slice(0, 5)}
       />
       {/* <input
         type="text"

@@ -11,10 +11,10 @@ interface ICoinDetailsPage {
 export const CoinDetailsPage: React.FunctionComponent<ICoinDetailsPage> = ({
   coin,
 }) => {
-  const { coinData } = useCoin(coin.uuid, coin);
+  const { coinData, loading } = useCoin(coin.uuid, coin);
   return (
     <div className="flex flex-col gap-20 h-screen md:px-5  bg-gradient-to-t from-black via-gray-800 to-gray-800 overflow-y-auto px-2 xl:px-60 py-20 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-      <CoinDetailsHeader coin={coinData} />
+      <CoinDetailsHeader coin={coinData} loading={loading} />
 
       <div className="flex flex-col items-start md:items-center gap-10">
         <div className="flex flex-col md:flex-row w-full gap-5 ">

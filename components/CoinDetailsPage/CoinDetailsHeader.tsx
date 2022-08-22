@@ -5,11 +5,14 @@ import { DetailedCoin } from "../../remote_api/CoinRanking";
 
 export const CoinDetailsHeader: React.FunctionComponent<{
   coin: DetailedCoin;
-}> = ({ coin }) => {
+  loading: boolean;
+}> = ({ coin, loading }) => {
   const { currency, formatPrice, getTrend, formatNumber } = useCurrency();
 
   return (
-    <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-40 w-full">
+    <div
+      className={`flex flex-col md:flex-row justify-between gap-10 md:gap-40 w-full `}
+    >
       {/* Coin Info */}
       <div className="flex flex-col items-start gap-3  md:w-1/3">
         {/*Coin name and icon  */}
@@ -42,9 +45,21 @@ export const CoinDetailsHeader: React.FunctionComponent<{
       <div className="flex flex-col  gap-2  md:items-end lg:items-start md:w-2/3">
         <p className="text-sm text-slate-400">{coin.name} Price </p>
         <div className="flex gap-4 items-center justify-between md:justify-start">
-          <p className=" text-white font-bold text-3xl">
+          {/*  Loader */}
+          {/* {loading === true && (
+            <div className="flex items-center justify-center ">
+              <div className="w-4 h-4 border-b-2 border-gray-100 rounded-full animate-spin"></div>
+            </div>
+          )}  */}
+
+          <p
+            className={` text-white font-bold text-3xl ${
+              loading && "animate-pulse"
+            }`}
+          >
             {formatPrice(coin.price)}{" "}
           </p>
+
           <p
             className={`${
               getTrend(coin.change) === "up" ? "bg-green-500" : "bg-red-500"

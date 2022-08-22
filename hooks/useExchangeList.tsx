@@ -13,7 +13,7 @@ export const useExchangeList = (uuid: string, _params?: {}) => {
   const [exchanges, setExchanges] = useState<Exchange[]>([]);
   const [params, setParams] = useState(_params);
   const [stats, setStats] = useState<CoinsStats>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { currency } = useCurrency();
   let coinAPI = new CoinRankingAPI();
 
@@ -73,7 +73,7 @@ export const useExchangeList = (uuid: string, _params?: {}) => {
 
   useEffect(() => {
     fetchAllExchanges();
-  }, [currency]);
+  }, [currency, uuid]);
 
   // useEffect(() => {
   //   const controller = new AbortController();

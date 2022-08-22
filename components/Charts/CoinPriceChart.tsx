@@ -113,15 +113,20 @@ export const CoinPriceChart: React.FunctionComponent<{ coin: Coin }> = ({
   return (
     <div className="w-full relative flex flex-col ">
       {loading === true && (
-        <div className="absolute inset-0 backdrop-blur-sm flex items-center text-neutral-300 justify-center">
-          Loading Data
-        </div>
+        <>
+          <div className="absolute inset-0 backdrop-blur-sm flex flex-col gap-2 items-center  justify-center">
+            <div className="flex items-center justify-center ">
+              <div className="w-8 h-8 border-b-2 border-gray-100 rounded-full animate-spin"></div>
+            </div>
+            <p className="text-sx font-medium text-gray-100">Loading Data</p>
+          </div>
+        </>
       )}
       <p className="text-white font-bold mb-5 text-lg">
         {coin.name} to {currency?.symbol} Chart
       </p>
 
-      {/* Time Period Buttobs */}
+      {/* Time Period Buttons */}
       <div className="relative min-w-full md:min-w-fit bg-gray-700  inline-flex gap-2 pl-1 pr-1 md:pl-2 md:pr-2 pt-1 pb-1 self-end  rounded-lg justify-between">
         {_timePeriods.map((t, i) => {
           return (
