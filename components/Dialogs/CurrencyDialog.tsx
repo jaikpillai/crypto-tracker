@@ -29,7 +29,7 @@ export const CurrencyDialog: React.FunctionComponent<ICurrencyDialog> = ({
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
       <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
       <div className="fixed inset-0  flex items-center justify-center p-4 backdrop-blur-sm">
-        <Dialog.Panel className=" w-full lg:w-[58rem]  rounded bg-slate-800 p-4 shadow-lg">
+        <Dialog.Panel className=" w-full lg:w-[58rem]  rounded bg-slate-800 p-4 shadow-lg overflow-y-auto ">
           <Dialog.Title className={" flex flex-col gap-2 justify-between"}>
             <div className="flex font-bold text-white   justify-between">
               <p className="text-xl"> Choose Currency</p>
@@ -146,7 +146,7 @@ export const CurrencyDialog: React.FunctionComponent<ICurrencyDialog> = ({
           </div>
           <br />
 
-          <div className="marker:max-h-[22rem] grid grid-cols-2  gap-2 lg:grid-cols-4 overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+          <div className="max-h-[15rem]  grid grid-cols-2  gap-2 lg:grid-cols-4 overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
             {currencyList
               ?.filter((e) => e.uuid !== currency?.uuid)
               .map((cur) => {

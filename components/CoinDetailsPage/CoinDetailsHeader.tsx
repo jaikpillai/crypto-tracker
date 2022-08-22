@@ -11,7 +11,7 @@ export const CoinDetailsHeader: React.FunctionComponent<{
 
   return (
     <div
-      className={`flex flex-col md:flex-row justify-between gap-10 md:gap-40 w-full `}
+      className={`flex flex-col md:flex-row justify-between gap-10 md:gap-40 w-full`}
     >
       {/* Coin Info */}
       <div className="flex flex-col items-start gap-3  md:w-1/3">
