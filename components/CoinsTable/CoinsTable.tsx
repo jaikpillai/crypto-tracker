@@ -14,7 +14,6 @@ import { Triangle } from "../Shapes";
 interface IChoinChart {
   coins: Coin[];
   stats: CoinsStats | undefined;
-  setParams: (params: {}) => void;
   currentPage?: number;
   loading?: boolean;
   limit?: number;
@@ -23,23 +22,17 @@ interface IChoinChart {
 export const CoinsTable: React.FunctionComponent<IChoinChart> = ({
   coins: _coins,
   stats,
-  setParams,
   currentPage = 1,
   loading,
   limit = 50,
 }) => {
-  const { formatPrice, getTrend, currency } = useCurrency();
+  const { formatPrice, getTrend } = useCurrency();
   const router = useRouter();
 
   const goToPage = (n: number) => {
     router.push(`/charts/${n}`);
   };
-  if (_coins.length === 0 && loading === false)
-    return (
-      <div className="w-full pt-10 h-screen overflow-x-auto lg:justify-center text-white bg-black/20 backdrop-blur-sm px-4 xl:px-40">
-        <p>Page limit</p>
-      </div>
-    );
+  if (_coins.length === 0 && loading === false) return <ErrorPage />;
   return (
     <div className="w-full pt-10 min-h-screen overflow-x-auto lg:justify-center text-white bg-black/20 backdrop-blur-sm px-4 xl:px-40">
       <table className="border-collapse table-auto w-full h-full text-start">
@@ -63,9 +56,10 @@ export const CoinsTable: React.FunctionComponent<IChoinChart> = ({
                   <p className="text-left">{coin.rank}</p>
                 </td>
                 <td className="p-4 border-b border-slate-700 ">
-                  <Link shallow={true} href={`/coin/${coin.uuid}`}>
+                  <Link shallow={false} href={`/coin/${coin.uuid}`}>
                     <a className="flex items-center gap-4">
                       <Image
+                        alt={`${coin.name}`}
                         className=""
                         objectFit="contain"
                         height={30}
@@ -294,4 +288,19 @@ const PaginationNumbers: React.FunctionComponent<{
     );
   }
   return null;
+};
+
+const ErrorPage = () => {
+  const router = useRouter();
+  return (
+    <div className="w-full pt-10 h-screen overflow-x-auto flex flex-col items-center gap-10  text-white bg-black/20 backdrop-blur-sm px-4 xl:px-40">
+      <p className="text-3xl font-bold">End of the charts</p>
+      <button
+        onClick={() => router.push("/")}
+        className="bg-primary-500 text-black p-2 rounded-md"
+      >
+        Go to homepage
+      </button>
+    </div>
+  );
 };

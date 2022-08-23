@@ -18,6 +18,7 @@ export const CoinDetailsHeader: React.FunctionComponent<{
         {/*Coin name and icon  */}
         <div className="flex gap-3 items-center">
           <Image
+            alt={`${coin?.name}`}
             className=""
             objectFit="contain"
             height={30}

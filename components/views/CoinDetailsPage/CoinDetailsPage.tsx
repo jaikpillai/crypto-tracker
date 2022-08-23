@@ -12,6 +12,7 @@ export const CoinDetailsPage: React.FunctionComponent<ICoinDetailsPage> = ({
   coin,
 }) => {
   const { coinData, loading } = useCoin(coin.uuid, coin);
+
   return (
     <div className="flex flex-col gap-20 h-max w-full md:px-5 bg-cover  bg-gradient-to-t from-black via-gray-800 to-gray-800  px-2 xl:px-60 py-20 ">
       <CoinDetailsHeader coin={coinData} loading={loading} />

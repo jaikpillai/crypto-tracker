@@ -1,14 +1,23 @@
 import { GetServerSideProps, NextPage } from "next";
 import { Homepage } from "../components/views/Homepage/Homepage";
-import backendAxiosInstance, {
+import CoinRankingAPI, {
   Coin,
-  CoinRankingAPI,
+  CoinsStats,
   getDefaultCurrency,
 } from "../remote_api/CoinRanking";
-import { axiosPublic } from "../remote_api/CoinRanking/CoinRanking";
 
-const Home: NextPage<{ coins: Coin[]; top5Coins: Coin[] }> = (props) => {
-  return <Homepage coins={props.coins} top5Coins={props.top5Coins} />;
+const Home: NextPage<{
+  coins: Coin[];
+  top5Coins: Coin[];
+  stats: CoinsStats;
+}> = (props) => {
+  return (
+    <Homepage
+      stats={props.stats}
+      coins={props.coins}
+      top5Coins={props.top5Coins}
+    />
+  );
 };
 
 export default Home;
@@ -28,17 +37,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   }
 
   // all coins
-  let resultAllCoins = await axiosPublic({
-    url: coinAPI.allCoinsQuery().url,
-    params: coinAPI.allCoinsQuery({
-      referenceCurrencyUuid: currency?.uuid,
-    }).params,
-  });
+  let results = await coinAPI.getAllCoins().fetch();
 
-  let coins = resultAllCoins.data.data.coins;
-  let top5Coins = resultAllCoins.data.data.coins.slice(0, 5);
+  let coins = results.data.data.coins;
+  let stats = results.data.data.stats;
+  let top5Coins = results.data.data.coins.slice(0, 5);
 
   return {
-    props: { coins: coins, top5Coins: top5Coins },
+    props: { coins: coins, top5Coins: top5Coins, stats: stats },
   };
 };

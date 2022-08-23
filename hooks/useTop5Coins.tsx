@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import CoinRankingAPI, { DetailedCoin } from "../remote_api/CoinRanking";
+import CoinRankingAPI, { Coin } from "../remote_api/CoinRanking";
 import { useCurrency } from "./useCurrency";
 
-export const useCoin = (uuid: string, preLoadedCoin: DetailedCoin) => {
-  const [coinData, setCoinData] = useState<DetailedCoin>(preLoadedCoin);
+export const useTop5Coins = () => {
+  const [top5Coins, setTop5Coins] = useState<Coin[]>();
   const [loading, setLoading] = useState(false);
   const { currency } = useCurrency();
 
@@ -11,14 +11,14 @@ export const useCoin = (uuid: string, preLoadedCoin: DetailedCoin) => {
     try {
       setLoading(true);
       let coinData = await new CoinRankingAPI()
-        .getCoinDetails(uuid, {
+        .getTop5Coins({
           referenceCurrencyUuid: currency?.uuid,
           timePeriod: "1h",
         })
         .fetch({ signal: signal });
-      let coin = coinData.data.data.coin;
+      let coins = coinData.data.data.coins;
 
-      setCoinData(coin);
+      setTop5Coins(coins);
       setLoading(false);
     } catch (e) {
       setLoading(false);
@@ -27,13 +27,13 @@ export const useCoin = (uuid: string, preLoadedCoin: DetailedCoin) => {
 
   useEffect(() => {
     const controller = new AbortController();
-    if (currency?.uuid && preLoadedCoin?.uuid != coinData?.uuid) {
+    if (currency?.uuid) {
       fetchCoin(controller.signal);
     }
     return () => {
       controller.abort();
     };
-  }, [currency, uuid]);
+  }, [currency]);
 
-  return { coinData, loading };
+  return { top5Coins, loading };
 };

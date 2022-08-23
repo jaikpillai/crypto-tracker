@@ -1,12 +1,6 @@
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
-import {
-  CategoryScale,
-  ScriptableContext,
-  TooltipCallbacks,
-  TooltipItem,
-  TooltipModel,
-} from "chart.js";
+import { CategoryScale, ScriptableContext } from "chart.js";
 import { Coin } from "../../remote_api/CoinRanking";
 import { useCurrency } from "../../hooks";
 import {

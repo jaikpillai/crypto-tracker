@@ -1,21 +1,5 @@
 import cookies from "js-cookie";
 
-export { default } from "./CoinRanking";
-export { CoinRankingAPI } from "./CoinRanking";
-
-export interface CoinsQueryResponse {
-  data: {
-    stats: CoinsStats;
-    coins: Coin[];
-  };
-}
-export interface CoinsHistoryQueryResponse {
-  data: {
-    change: "string";
-    history: CoinHistoryData[];
-  };
-}
-
 export interface Coin {
   uuid: string; // UUID of the coin
   symbol: string; //Currency symbol
@@ -101,32 +85,6 @@ export const INR_CURRENCY: Currency = {
   sign: "₹",
 };
 
-export const DEFAULT_COIN: DetailedCoin = {
-  uuid: "x",
-  symbol: "Test",
-  name: "",
-  color: "",
-  iconUrl: "/",
-  "24hVolume": "",
-  marketCap: "",
-  price: "",
-  btcPrice: "",
-  listedAt: 0,
-  change: "string",
-  rank: 0,
-  sparkline: [],
-  coinrankingUrl: "/",
-  allTimeHigh: { price: "", timestamp: 0 },
-  description: "",
-  links: [],
-  lowVolume: false,
-  numberOfExhanges: 0,
-  numberOfMarkets: 0,
-  priceAt: 0,
-  supply: { circulating: "", confirmed: false, total: "" },
-  websiteUrl: "",
-};
-
 export function getDefaultCurrency() {
   let currency;
 
@@ -151,3 +109,5 @@ function isValidCurrencyCookie(cookie: string | undefined) {
     return false;
   }
 }
+
+export { default } from "./CoinRanking";

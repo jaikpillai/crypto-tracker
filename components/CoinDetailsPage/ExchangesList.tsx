@@ -49,6 +49,7 @@ const ExchangeCard: React.FunctionComponent<IExchangeCard> = ({
           {exchange.rank}
         </p>
         <Image
+          alt={`${exchange?.name}`}
           className=""
           objectFit="contain"
           height={20}

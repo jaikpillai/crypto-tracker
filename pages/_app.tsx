@@ -8,6 +8,7 @@ import { useRouterProgress } from "../hooks";
 import type { AppProps } from "next/app";
 import { CurrencyProvider } from "../contexts/CurrencyContext";
 import { ToolbarHeader } from "../components/Header/ToolbarHeader";
+import { Footer } from "../components/Footer.tsx";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { animating, setIsAnimating } = useRouterProgress();
@@ -38,6 +39,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.events.off("routeChangeComplete", handleStop);
       router.events.off("routeChangeError", handleStop);
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   return (
@@ -49,6 +52,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         ref={windowRef}
       >
         <Component {...pageProps} />
+        <Footer />
       </div>
     </CurrencyProvider>
   );

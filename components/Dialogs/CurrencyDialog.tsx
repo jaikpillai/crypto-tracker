@@ -1,5 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog } from "@headlessui/react";
 import { useCurrency } from "../../hooks";
 import Image from "next/image";
 
@@ -12,18 +11,7 @@ export const CurrencyDialog: React.FunctionComponent<ICurrencyDialog> = ({
   isOpen,
   setIsOpen,
 }) => {
-  const { currency, setCurrency, fetchCurrencies, currencyList } =
-    useCurrency();
-  const [search, setSearch] = useState("");
-  const [controller, setController] = useState<AbortController>(
-    new AbortController()
-  );
-
-  useEffect(() => {
-    return () => {
-      controller.abort();
-    };
-  }, [search]);
+  const { currency, setCurrency, setQuery, currencyList } = useCurrency();
 
   return (
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
@@ -73,9 +61,7 @@ export const CurrencyDialog: React.FunctionComponent<ICurrencyDialog> = ({
               <input
                 className="pl-10 w-full bg-gray-900 p-2 rounded-md text-sm placeholder:opacity-40 text-neutral-100"
                 placeholder="Search Fiat or Cryptocurrency"
-                onChange={(e) =>
-                  fetchCurrencies({ search: e.target.value }, controller.signal)
-                }
+                onChange={(e) => setQuery(e.target.value)}
                 type="text"
                 name=""
                 id=""
@@ -102,6 +88,7 @@ export const CurrencyDialog: React.FunctionComponent<ICurrencyDialog> = ({
                   <div className="w-10 h-5 flex">
                     {currency?.iconUrl ? (
                       <Image
+                        alt={`${currency.name}`}
                         className=""
                         objectFit="contain"
                         height={30}
@@ -165,6 +152,7 @@ export const CurrencyDialog: React.FunctionComponent<ICurrencyDialog> = ({
                       <div className="w-10 h-5 flex">
                         {cur?.iconUrl ? (
                           <Image
+                            alt={`${cur.name}`}
                             className=""
                             objectFit="contain"
                             height={30}

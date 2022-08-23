@@ -23,6 +23,7 @@ export const CoinCard: React.FunctionComponent<{
           {/* Coin Image */}
           <div className="-z-0 transition-all group-hover:top-4 group-hover:scale-125 absolute top-0 left-4 h-60 w-60 p-1">
             <Image
+              alt={`${props.coin?.name}`}
               className="grayscale opacity-10 group-hover:opacity-20"
               objectFit="contain"
               height={150}

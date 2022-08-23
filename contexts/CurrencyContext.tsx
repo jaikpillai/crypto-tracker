@@ -1,12 +1,8 @@
-import { createContext, useEffect, useLayoutEffect, useState } from "react";
-import {
-  CoinRankingAPI,
+import { createContext, useEffect, useState } from "react";
+import CoinRankingAPI, {
   Currency,
   getDefaultCurrency,
-  INR_CURRENCY,
-  US_DOLLAR_CURRENCY,
 } from "../remote_api/CoinRanking";
-import { axiosPublic } from "../remote_api/CoinRanking/CoinRanking";
 import cookies from "js-cookie";
 
 interface ICurrecyContext {
@@ -32,16 +28,11 @@ export const CurrencyProvider: React.FunctionComponent<ICurrencyProvider> = ({
   const [defaultCurrencyList, setDefaultCurrencyList] = useState<Currency[]>(
     []
   );
-  let coinAPI = new CoinRankingAPI();
 
-  const fetchCurrencies = async (params?: {}, _signal?: AbortSignal) => {
-    let _currencies = await axiosPublic({
-      url: "/reference-currencies",
-      params: { limit: "20", ...params },
-      signal: _signal,
-    });
+  const fetchCurrencies = async (signal?: AbortSignal) => {
+    let result = await new CoinRankingAPI().getCurrencies().fetch();
 
-    setDefaultCurrencyList(_currencies.data.data.currencies);
+    setDefaultCurrencyList(result.data.data.currencies);
   };
 
   function setCurrencyCookie() {
@@ -49,8 +40,13 @@ export const CurrencyProvider: React.FunctionComponent<ICurrencyProvider> = ({
   }
 
   useEffect(() => {
-    fetchCurrencies();
+    const controller = new AbortController();
+    fetchCurrencies(controller.signal);
     setCurrency(getDefaultCurrency());
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   useEffect(() => {

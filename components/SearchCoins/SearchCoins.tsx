@@ -19,6 +19,8 @@ export const SearchCoins = () => {
     return () => {
       controller.abort();
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   return (
@@ -77,6 +79,7 @@ export const SearchCoins = () => {
                     )}
 
                     <Image
+                      alt={`${coin.name}`}
                       className=""
                       objectFit="contain"
                       height={20}

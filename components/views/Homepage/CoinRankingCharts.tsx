@@ -1,20 +1,22 @@
 import { NextPage } from "next";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-import { useCoinsList, useCurrency } from "../../../hooks/";
+import { useCoinsList, useTop5Coins } from "../../../hooks";
 
 import { Coin } from "../../../remote_api/CoinRanking";
 import { CoinsTable } from "../../CoinsTable/CoinsTable";
 import { Header } from "../../Header/Header";
 
 interface Charts {
-  top5Coins: Coin[];
   coins: Coin[];
-  pageNumber: number | undefined;
 }
 
-export const Charts: NextPage<Charts> = ({ top5Coins, coins, pageNumber }) => {
-  // const { top5Coins: _top5Coins } = useTop5Coins(top5Coins);
+export const CoinRankingCharts: NextPage<Charts> = ({ coins }) => {
+  const { top5Coins } = useTop5Coins();
+
+  const router = useRouter();
+
   const {
     coins: _allCoins,
     loading,
@@ -23,10 +25,17 @@ export const Charts: NextPage<Charts> = ({ top5Coins, coins, pageNumber }) => {
     limit,
   } = useCoinsList(coins);
 
+  const [pageNumber, setPageNumber] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    setPageNumber(Math.abs(Number(router.query.pgno)));
+  }, [router]);
+
   useEffect(() => {
     if (pageNumber) {
-      setParams({ offset: (pageNumber - 1) * limit });
+      setParams({ offset: String((pageNumber - 1) * limit) });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
 
   return (
@@ -35,19 +44,13 @@ export const Charts: NextPage<Charts> = ({ top5Coins, coins, pageNumber }) => {
         headingText="Top Crypto"
         subHeading="A Cryptocurrency tracker"
         callToAction={{ text: "Visit", link: "/" }}
-        top5Coins={_allCoins.slice(0, 5)}
+        top5Coins={top5Coins}
       />
-      {/* <input
-        type="text"
-        name=""
-        id=""
-        onChange={(e) => setParams({ search: e.target.value })}
-      /> */}
+
       <div className="relative">
         <CoinsTable
           stats={stats}
           coins={_allCoins}
-          setParams={setParams}
           currentPage={pageNumber}
           loading={loading}
           limit={limit}

@@ -11,7 +11,7 @@ export const ToolbarHeader: React.FunctionComponent = () => {
   const [isCurrencyDialogOpen, setIsCurrencyDialogOpen] = useState(false);
   const router = useRouter();
   return (
-    <div className="fixed w-full h-12 bg-black/30 z-40 backdrop-blur-sm flex justify-between items-center gap-4 lg:px-60 px-5 border-b border-b-white/30">
+    <div className="fixed w-full h-12 bg-black/30 z-40 backdrop-blur-sm flex justify-between items-center gap-4 xl:px-60 px-5 border-b border-b-white/30">
       {/* Home Icon */}
       <button className="text-white" onClick={() => router.push("/")}>
         <svg
