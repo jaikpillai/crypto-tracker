@@ -36,7 +36,7 @@ export const Header: React.FunctionComponent<IHeader> = ({
       <br />
       {/* Top 5 Coins List */}
       <div className="flex gap-3 flex-wrap items-center justify-center">
-        {top5Coins ? (
+        {top5Coins?.length !== 0 ? (
           top5Coins?.map((coin) => {
             return (
               <CoinCard

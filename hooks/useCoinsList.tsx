@@ -32,7 +32,7 @@ export const useCoinsList = (defaultCoins: Coin[] = [], _params?: {}) => {
   useEffect(() => {
     const controller = new AbortController();
 
-    if (currency?.uuid && params) {
+    if (currency?.uuid) {
       fetchAllCoins(params, controller.signal);
     }
 

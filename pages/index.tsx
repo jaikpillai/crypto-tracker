@@ -22,28 +22,28 @@ const Home: NextPage<{
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  let coinAPI = new CoinRankingAPI();
+// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+//   let coinAPI = new CoinRankingAPI();
 
-  let currency;
+//   let currency;
 
-  try {
-    currency = JSON.parse(JSON.parse(JSON.stringify(req.cookies["currency"])))
-      ?.uuid
-      ? JSON.parse(JSON.parse(JSON.stringify(req.cookies["currency"])))
-      : getDefaultCurrency();
-  } catch (e) {
-    currency = getDefaultCurrency();
-  }
+//   try {
+//     currency = JSON.parse(JSON.parse(JSON.stringify(req.cookies["currency"])))
+//       ?.uuid
+//       ? JSON.parse(JSON.parse(JSON.stringify(req.cookies["currency"])))
+//       : getDefaultCurrency();
+//   } catch (e) {
+//     currency = getDefaultCurrency();
+//   }
 
-  // all coins
-  let results = await coinAPI.getAllCoins().fetch();
+//   // all coins
+//   let results = await coinAPI.getAllCoins().fetch();
 
-  let coins = results.data.data.coins;
-  let stats = results.data.data.stats;
-  let top5Coins = results.data.data.coins.slice(0, 5);
+//   let coins = results.data.data.coins;
+//   let stats = results.data.data.stats;
+//   let top5Coins = results.data.data.coins.slice(0, 5);
 
-  return {
-    props: { coins: coins, top5Coins: top5Coins, stats: stats },
-  };
-};
+//   return {
+//     props: { coins: coins, top5Coins: top5Coins, stats: stats },
+//   };
+// };
