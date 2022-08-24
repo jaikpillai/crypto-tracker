@@ -9,6 +9,7 @@ import type { AppProps } from "next/app";
 import { CurrencyProvider } from "../contexts/CurrencyContext";
 import { ToolbarHeader } from "../components/Header/ToolbarHeader";
 import { Footer } from "../components/Footer.tsx";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { animating, setIsAnimating } = useRouterProgress();
@@ -45,8 +46,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <CurrencyProvider>
-      <Progress isAnimating={animating} />
+      <Head>
+        <title>CryptoBoo</title>
+        <link rel="shortcut icon" href="/favicon.png" />
+      </Head>
 
+      <Progress isAnimating={animating} />
       <ToolbarHeader />
       <div
         className="w-screen h-screen  bg-gray-900 overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent "

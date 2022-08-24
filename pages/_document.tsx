@@ -17,8 +17,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>CryptoBoo</title>
-          <link rel="shortcut icon" href="/favicon.png" />
           <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
