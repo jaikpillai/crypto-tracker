@@ -37,8 +37,8 @@ export const CoinDetailsHeader: React.FunctionComponent<{
         </p>
         {/* Coin links */}
         <div className="mt-5 md:flex gap-2 flex-wrap hidden">
-          {coin.links?.map((e) => {
-            return <Chip key={e.url} text={e.name} link={e.url} />;
+          {coin.links?.map((e, i) => {
+            return <Chip key={`${e.url + i}`} text={e.name} link={e.url} />;
           })}
         </div>
       </div>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import BigNumber from "bignumber.js";
 import { useContext, useEffect, useState } from "react";
 import { CurrecyContext } from "../contexts/CurrencyContext";
@@ -53,7 +54,9 @@ export const useCurrency = () => {
       setCurrencyList(currencies);
       setLoading(false);
     } catch (e) {
-      setLoading(false);
+      if (!axios.isCancel(e)) {
+        setLoading(false);
+      }
     }
   };
 
@@ -72,6 +75,7 @@ export const useCurrency = () => {
     } else if (query.length === 0) {
       setCurrencyList(defaultCurrencyList);
     }
+
     return () => {
       controller.abort();
     };

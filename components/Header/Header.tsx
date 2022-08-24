@@ -36,7 +36,7 @@ export const Header: React.FunctionComponent<IHeader> = ({
       <br />
       {/* Top 5 Coins List */}
       <div className="flex gap-3 flex-wrap items-center justify-center">
-        {top5Coins?.length !== 0 ? (
+        {top5Coins ? (
           top5Coins?.map((coin) => {
             return (
               <CoinCard
@@ -48,11 +48,9 @@ export const Header: React.FunctionComponent<IHeader> = ({
           })
         ) : (
           <>
-            <CoinCardTemplate />
-            <CoinCardTemplate />
-            <CoinCardTemplate />
-            <CoinCardTemplate />
-            <CoinCardTemplate />
+            {[...Array(5)].map((e, i) => {
+              return <CoinCardTemplate key={i} />;
+            })}
           </>
         )}
       </div>

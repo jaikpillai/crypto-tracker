@@ -7,6 +7,7 @@ import { useCoinsList, useTop5Coins } from "../../../hooks";
 import { Coin } from "../../../remote_api/CoinRanking";
 import { CoinsTable } from "../../CoinsTable/CoinsTable";
 import { Header } from "../../Header/Header";
+import appInfo from "../../../general";
 
 interface Charts {
   coins: Coin[];
@@ -33,16 +34,18 @@ export const CoinRankingCharts: NextPage<Charts> = ({ coins }) => {
 
   useEffect(() => {
     if (pageNumber) {
-      setParams({ offset: String((pageNumber - 1) * limit) });
+      setParams((prev) => {
+        return { offset: String((pageNumber - 1) * limit) };
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
 
   return (
-    <div className="h-max w-full bg-neutral-800 bg-gradient-to-t from-black via-gray-800 to-gray-800 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+    <div className="h-max w-full  bg-gradient-to-t from-black/50 via-gray-800/70 to-gray-800/50 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
       <Header
-        headingText="Top Crypto"
-        subHeading="A Cryptocurrency tracker"
+        headingText={appInfo.app_name}
+        subHeading={appInfo.brief}
         callToAction={{ text: "Visit", link: "/" }}
         top5Coins={top5Coins}
       />

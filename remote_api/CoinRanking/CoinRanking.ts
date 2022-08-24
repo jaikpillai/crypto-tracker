@@ -100,18 +100,23 @@ export class CoinRankingAPI {
   }
 }
 
-export const axiosPublic = axiosRateLimit(
-  axios.create({
-    headers: {
-      "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API || "",
-      "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
-    },
-    baseURL: "https://coinranking1.p.rapidapi.com",
-  }),
-  {
-    maxRequests: 5,
-    perMilliseconds: 1000,
-    maxRPS: 4,
-  }
-);
+// export const axiosPublic = axiosRateLimit(
+//   axios.create({
+//     headers: {
+//       "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API || "",
+//       "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
+//     },
+//     baseURL: "https://coinranking1.p.rapidapi.coms",
+//   }),
+//   {
+//     maxRPS: 4,
+//   }
+// );
+export const axiosPublic = axios.create({
+  headers: {
+    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API || "",
+    "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
+  },
+  baseURL: "https://coinranking1.p.rapidapi.com",
+});
 export default CoinRankingAPI;

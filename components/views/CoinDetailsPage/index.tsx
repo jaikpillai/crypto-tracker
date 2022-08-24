@@ -8,13 +8,13 @@ interface ICoinDetailsPage {
   coin: DetailedCoin;
 }
 
-export const CoinDetailsPage: React.FunctionComponent<ICoinDetailsPage> = ({
+const CoinDetailsPage: React.FunctionComponent<ICoinDetailsPage> = ({
   coin,
 }) => {
   const { coinData, loading } = useCoin(coin.uuid, coin);
 
   return (
-    <div className="flex flex-col gap-20 h-max w-full md:px-5 bg-cover  bg-gradient-to-t from-black via-gray-800 to-gray-800  px-2 xl:px-60 py-20 ">
+    <div className="flex flex-col gap-20 h-max w-full  bg-cover  bg-gradient-to-t from-black/50 via-gray-800/70 to-gray-800/50 md:px-5 px-2 xl:px-60 py-20 ">
       <CoinDetailsHeader coin={coinData} loading={loading} />
       <div className="flex flex-col items-start md:items-center gap-10">
         <div className="flex flex-col md:flex-row w-full gap-5 ">
@@ -38,3 +38,5 @@ export const CoinDetailsPage: React.FunctionComponent<ICoinDetailsPage> = ({
     </div>
   );
 };
+
+export default CoinDetailsPage;

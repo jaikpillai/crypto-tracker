@@ -46,9 +46,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <CurrencyProvider>
       <Progress isAnimating={animating} />
+
       <ToolbarHeader />
       <div
-        className="w-screen h-screen overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
+        className="w-screen h-screen  bg-gray-900 overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent "
         ref={windowRef}
       >
         <Component {...pageProps} />

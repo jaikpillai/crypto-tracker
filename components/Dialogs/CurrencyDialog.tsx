@@ -11,7 +11,8 @@ export const CurrencyDialog: React.FunctionComponent<ICurrencyDialog> = ({
   isOpen,
   setIsOpen,
 }) => {
-  const { currency, setCurrency, setQuery, currencyList } = useCurrency();
+  const { currency, setCurrency, setQuery, currencyList, loading } =
+    useCurrency();
 
   return (
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
@@ -20,7 +21,14 @@ export const CurrencyDialog: React.FunctionComponent<ICurrencyDialog> = ({
         <Dialog.Panel className=" w-full lg:w-[58rem]  rounded bg-slate-800 p-4 shadow-lg overflow-y-auto ">
           <Dialog.Title className={" flex flex-col gap-2 justify-between"}>
             <div className="flex font-bold text-white   justify-between">
-              <p className="text-xl"> Choose Currency</p>
+              <div className="text-xl flex gap-2">
+                <p>Choose Currency</p>
+                {loading && (
+                  <div className="flex items-center justify-center ">
+                    <div className="w-4 h-4 border-b-2 border-gray-500 rounded-full animate-spin"></div>
+                  </div>
+                )}
+              </div>
 
               {/* Close button */}
               <button onClick={() => setIsOpen(false)}>

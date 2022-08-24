@@ -4,7 +4,7 @@ import { useCurrency } from "./useCurrency";
 
 export const useCoin = (uuid: string, preLoadedCoin: DetailedCoin) => {
   const [coinData, setCoinData] = useState<DetailedCoin>(preLoadedCoin);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { currency } = useCurrency();
 
   const fetchCoin = async (signal?: AbortSignal) => {
@@ -27,7 +27,7 @@ export const useCoin = (uuid: string, preLoadedCoin: DetailedCoin) => {
 
   useEffect(() => {
     const controller = new AbortController();
-    if (currency?.uuid && preLoadedCoin?.uuid != coinData?.uuid) {
+    if (currency?.uuid) {
       fetchCoin(controller.signal);
     }
     return () => {

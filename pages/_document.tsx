@@ -5,6 +5,7 @@ import Document, {
   NextScript,
   DocumentInitialProps,
 } from "next/document";
+import appInfo from "../general";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: any): Promise<DocumentInitialProps> {
@@ -16,6 +17,12 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <title>CryptoBoo</title>
+          <link rel="shortcut icon" href="/favicon.png" />
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+          />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"

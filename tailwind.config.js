@@ -17,7 +17,7 @@ module.exports = {
         "primary": ["Sora", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        'primary': colors.lime,
+        'primary': colors.orange,
         'accent': colors.lime
       }
     },

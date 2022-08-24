@@ -1,2 +1,2 @@
 export * from "./Homepage/Homepage";
-export * from "./CoinDetailsPage/CoinDetailsPage";
+export { default } from "./CoinDetailsPage";

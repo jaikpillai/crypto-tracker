@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
-import { CoinDetailsPage } from "../../components/views";
+import Head from "next/head";
+import CoinDetailsPage from "../../components/views";
 import CoinRankingAPI, {
   DetailedCoin,
   getDefaultCurrency,
@@ -10,7 +11,14 @@ interface ICoinPage {
 }
 
 const CoinPage: NextPage<ICoinPage> = ({ coin }) => {
-  return <CoinDetailsPage coin={coin} />;
+  return (
+    <>
+      <Head>
+        <title>{coin.name}</title>
+      </Head>
+      <CoinDetailsPage coin={coin} />
+    </>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({

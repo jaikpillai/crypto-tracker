@@ -1,11 +1,9 @@
 import { NextPage } from "next";
-import { useEffect } from "react";
-
-import { useCoinsList, useCurrency } from "../../../hooks/";
-
+import { useCoinsList } from "../../../hooks/";
 import { Coin, CoinsStats } from "../../../remote_api/CoinRanking";
 import { CoinsTable } from "../../CoinsTable/CoinsTable";
 import { Header } from "../../Header/Header";
+import appInfo from "../../../general";
 
 interface IHomepage {
   top5Coins: Coin[];
@@ -18,10 +16,10 @@ export const Homepage: NextPage<IHomepage> = ({ top5Coins, coins, stats }) => {
   const { coins: _allCoins, loading, limit } = useCoinsList(coins);
 
   return (
-    <div className="h-max w-full bg-neutral-800 bg-gradient-to-t from-black via-gray-800 to-gray-800 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+    <div className="h-max w-full  bg-gradient-to-t from-black/50 via-gray-800/70 to-gray-800/50 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
       <Header
-        headingText="Top Crypto"
-        subHeading="A Cryptocurrency tracker"
+        headingText={appInfo.app_name}
+        subHeading={appInfo.brief}
         callToAction={{ text: "Visit", link: "/" }}
         top5Coins={_allCoins.slice(0, 5)}
       />
